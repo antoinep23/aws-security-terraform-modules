@@ -21,7 +21,7 @@ resource "aws_iam_role_policy" "this" {
 
 data "aws_iam_policy_document" "cloudwatch_logs_permissions" {
   count = var.is_cloudwatch_logs_forwarded ? 1 : 0
-  
+
   statement {
     sid    = "WriteCloudWatchLogs"
     effect = "Allow"
