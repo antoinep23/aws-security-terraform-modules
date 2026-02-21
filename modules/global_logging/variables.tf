@@ -33,3 +33,9 @@ variable "is_object_lock_enabled" {
   type        = bool
   default     = false
 }
+
+variable "sns_subscriber_email_addresses" {
+  description = "List of email addresses to subscribe to the SNS topic for CloudTrail alerts"
+  type        = list(string)
+  default     = []
+}
