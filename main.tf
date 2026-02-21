@@ -5,6 +5,7 @@ module "global_logging" {
   is_encrypted_with_kms        = false
   is_cloudwatch_logs_forwarded = false
   is_s3_access_logging_enabled = true
+  is_object_lock_enabled       = false
 }
 
 module "budget_alert" {

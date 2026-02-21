@@ -27,3 +27,9 @@ variable "is_s3_access_logging_enabled" {
   type        = bool
   default     = false
 }
+
+variable "is_object_lock_enabled" {
+  description = "Whether to enable S3 Object Lock for the CloudTrail logs bucket"
+  type        = bool
+  default     = false
+}

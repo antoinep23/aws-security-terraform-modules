@@ -22,6 +22,26 @@ resource "aws_s3_bucket_lifecycle_configuration" "this" {
   }
 }
 
+resource "aws_s3_bucket_versioning" "this" {
+  bucket = aws_s3_bucket.this.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_object_lock_configuration" "this" {
+  count  = var.is_object_lock_enabled ? 1 : 0
+  bucket = aws_s3_bucket.this.id
+
+  rule {
+    default_retention {
+      mode = "COMPLIANCE"
+      days = 365
+    }
+  }
+}
+
 data "aws_iam_policy_document" "s3_bucket_policy" {
   statement {
     sid    = "AWSCloudTrailAclCheck"
@@ -107,5 +127,14 @@ resource "aws_s3_bucket_logging" "this" {
     partitioned_prefix {
       partition_date_source = "EventTime"
     }
+  }
+}
+
+resource "aws_s3_bucket_versioning" "logging" {
+  count  = var.is_s3_access_logging_enabled ? 1 : 0
+  bucket = aws_s3_bucket.logging[0].id
+
+  versioning_configuration {
+    status = "Enabled"
   }
 }
