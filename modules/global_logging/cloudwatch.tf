@@ -1,4 +1,5 @@
 resource "aws_cloudwatch_log_group" "this" {
+  count                       = var.is_cloudwatch_logs_forwarded ? 1 : 0
   name                        = "CloudTrail/GlobalTrail"
   retention_in_days           = 30
   kms_key_id                  = var.is_encrypted_with_kms ? aws_kms_key.this[0].arn : null
@@ -29,7 +30,7 @@ data "aws_iam_policy_document" "cloudwatch_logs_permissions" {
       "logs:CreateLogStream",
       "logs:PutLogEvents"
     ]
-    resources = ["${aws_cloudwatch_log_group.this.arn}:*"]
+    resources = ["${aws_cloudwatch_log_group.this[0].arn}:*"]
   }
 }
 

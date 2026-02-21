@@ -21,3 +21,9 @@ variable "is_multi_region_trail" {
   type        = bool
   default     = false
 }
+
+variable "is_s3_access_logging_enabled" {
+  description = "Whether to enable S3 access logging for the CloudTrail logs bucket"
+  type        = bool
+  default     = false
+}

@@ -12,5 +12,5 @@ resource "aws_cloudtrail" "this" {
   is_organization_trail = var.is_organization_trail
 
   cloud_watch_logs_role_arn  = var.is_cloudwatch_logs_forwarded ? aws_iam_role.this[0].arn : null
-  cloud_watch_logs_group_arn = var.is_cloudwatch_logs_forwarded ? "${aws_cloudwatch_log_group.this.arn}:*" : null
+  cloud_watch_logs_group_arn = var.is_cloudwatch_logs_forwarded ? "${aws_cloudwatch_log_group.this[0].arn}:*" : null
 }
