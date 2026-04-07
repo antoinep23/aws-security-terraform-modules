@@ -16,12 +16,16 @@
 # }
 
 module "landing_zone" {
-  source = "./modules/landing_zone"
+  source          = "./modules/landing_zone"
+  create_accounts = false
   account_emails = {
-    security_tooling = "awssandbox+security-tooling@gmail.com",
-    log_archive      = "awssandbox+log-archive@gmail.com",
-    shared_services  = "awssandbox+shared-services@gmail.com",
-    production_app1  = "awssandbox+production-app1@gmail.com",
-    development_app1 = "awssandbox+development-app1@gmail.com"
+    security_tooling = "awssandbox+security-tooling-2@gmail.com",
+    log_archive      = "awssandbox+log-archive-2@gmail.com",
+    shared_services  = "awssandbox+shared-services-2@gmail.com",
+    production_app1  = "awssandbox+production-app1-2@gmail.com",
+    development_app1 = "awssandbox+development-app1-2@gmail.com"
   }
+  allowed_regions       = ["eu-west-3"]
+  management_account_id = "123456789012"
+  # cloudtrail_trail_arn = module.global_logging.cloudtrail_logging_trail_arn
 }

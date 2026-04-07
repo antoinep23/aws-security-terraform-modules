@@ -16,11 +16,11 @@ locals {
 }
 
 resource "aws_organizations_account" "this" {
-  for_each = var.account_emails
+  count = var.create_accounts ? length(var.account_emails) : 0
 
-  name      = each.key
-  email     = var.account_emails[each.key]
-  parent_id = local.ou_ids[local.account_ou_mapping[each.key]]
+  name      = keys(var.account_emails)[count.index]
+  email     = var.account_emails[keys(var.account_emails)[count.index]]
+  parent_id = local.ou_ids[local.account_ou_mapping[keys(var.account_emails)[count.index]]]
 
   iam_user_access_to_billing = "DENY"
   role_name                  = "OrganizationAccountAccessRole"

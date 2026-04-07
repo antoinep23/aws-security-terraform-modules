@@ -4,13 +4,14 @@ resource "aws_organizations_organization" "this" {
     "cloudtrail.amazonaws.com",
     "config.amazonaws.com",
     "guardduty.amazonaws.com",
-    "sso.amazonaws.com"
+    "sso.amazonaws.com",
   ]
 
   enabled_policy_types = [
     "SERVICE_CONTROL_POLICY",
     "TAG_POLICY",
     "BACKUP_POLICY",
+    "S3_POLICY"
   ]
 
   feature_set = "ALL"
