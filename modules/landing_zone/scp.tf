@@ -42,6 +42,17 @@ resource "aws_organizations_policy" "region_restriction" {
         Condition = {
           StringNotEquals = {
             "aws:RequestedRegion" = var.allowed_regions
+            "aws:RequestedService" = [
+              "cloudfront.amazonaws.com",
+              "iam.amazonaws.com",
+              "route53.amazonaws.com",
+              "support.amazonaws.com",
+              "organizations.amazonaws.com",
+              "waf.amazonaws.com",
+              "wafv2.amazonaws.com",
+              "budgets.amazonaws.com",
+              "globalaccelerator.amazonaws.com"
+            ]
           }
         }
       }

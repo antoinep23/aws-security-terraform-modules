@@ -5,6 +5,7 @@ resource "aws_organizations_organization" "this" {
     "config.amazonaws.com",
     "guardduty.amazonaws.com",
     "sso.amazonaws.com",
+    "iam.amazonaws.com"
   ]
 
   enabled_policy_types = [
@@ -40,4 +41,11 @@ resource "aws_organizations_organizational_unit" "production" {
 resource "aws_organizations_organizational_unit" "development" {
   name      = "Development"
   parent_id = aws_organizations_organizational_unit.workloads.id
+}
+
+resource "aws_iam_organizations_features" "this" {
+  enabled_features = [
+    "RootCredentialsManagement",
+    "RootSessions"
+  ]
 }
