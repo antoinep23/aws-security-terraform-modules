@@ -1,5 +1,5 @@
-variable "budget_limit" {
-  description = "The amount of the budget limit."
+variable "budget_limit_usd" {
+  description = "The amount of the budget limit in USD."
   type        = string
 }
 

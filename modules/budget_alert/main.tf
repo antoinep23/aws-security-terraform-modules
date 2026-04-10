@@ -3,7 +3,7 @@ resource "aws_budgets_budget" "this" {
   budget_type  = "COST"
   time_unit    = "MONTHLY"
   limit_unit   = "USD"
-  limit_amount = var.budget_limit
+  limit_amount = var.budget_limit_usd
 
   notification {
     comparison_operator        = "GREATER_THAN"

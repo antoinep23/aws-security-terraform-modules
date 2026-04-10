@@ -3,6 +3,11 @@ variable "account_emails" {
   description = "Map of email addresses for AWS accounts"
 }
 
+variable "base_email" {
+  type        = string
+  description = "Base email prefix for AWS accounts"
+}
+
 variable "create_accounts" {
   type        = bool
   description = "Whether to create AWS accounts or not"
@@ -18,7 +23,7 @@ variable "allowed_regions" {
 variable "cloudtrail_trail_arn" {
   type        = string
   description = "ARN of the global logging CloudTrail trail"
-  default     = ""
+  default     = "none"
 }
 
 variable "management_account_id" {

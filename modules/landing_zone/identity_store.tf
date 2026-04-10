@@ -7,16 +7,16 @@ resource "aws_identitystore_group" "admins" {
 resource "aws_identitystore_user" "johndoe" {
   identity_store_id = local.identity_store_id
 
-  display_name = "John Doe"
-  user_name    = "johndoe"
+  display_name = "Main User"
+  user_name    = "main"
 
   name {
-    given_name  = "John"
-    family_name = "Doe"
+    given_name  = "Main"
+    family_name = "User"
   }
 
   emails {
-    value = "johndoe@gmail.com"
+    value = "${var.base_email}@gmail.com"
   }
 }
 

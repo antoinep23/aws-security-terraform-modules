@@ -2,16 +2,16 @@ locals {
   account_ou_mapping = {
     security_tooling = "security"
     log_archive      = "security"
-    shared_services  = "shared_services"
+    shared_services  = "infrastructure"
     production_app1  = "production"
     development_app1 = "development"
   }
 
   ou_ids = {
-    security        = aws_organizations_organizational_unit.security.id
-    shared_services = aws_organizations_organizational_unit.shared_services.id
-    production      = aws_organizations_organizational_unit.production.id
-    development     = aws_organizations_organizational_unit.development.id
+    security       = aws_organizations_organizational_unit.security.id
+    infrastructure = aws_organizations_organizational_unit.infrastructure.id
+    production     = aws_organizations_organizational_unit.production.id
+    development    = aws_organizations_organizational_unit.development.id
   }
 }
 

@@ -39,7 +39,7 @@ data "aws_iam_policy_document" "key" {
     condition {
       test     = "StringEquals"
       variable = "aws:SourceArn"
-      values   = ["arn:${data.aws_partition.current.partition}:cloudtrail:${data.aws_region.current.region}:${data.aws_caller_identity.current.account_id}:trail/GlobalTrail"]
+      values   = ["arn:aws:cloudtrail:${data.aws_region.current.region}:${var.management_account_id}:trail/${local.trail_name}"]
     }
   }
 

@@ -1,8 +1,3 @@
-locals {
-  sso_instance_arn  = "arn:aws:sso:::instance/ssoins-1234567890abcdef"
-  identity_store_id = "d-123456789"
-}
-
 resource "aws_ssoadmin_permission_set" "administrator" {
   name             = "AdministratorAccess"
   description      = "Full administrator access"

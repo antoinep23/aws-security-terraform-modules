@@ -42,17 +42,6 @@ resource "aws_organizations_policy" "region_restriction" {
         Condition = {
           StringNotEquals = {
             "aws:RequestedRegion" = var.allowed_regions
-            "aws:RequestedService" = [
-              "cloudfront.amazonaws.com",
-              "iam.amazonaws.com",
-              "route53.amazonaws.com",
-              "support.amazonaws.com",
-              "organizations.amazonaws.com",
-              "waf.amazonaws.com",
-              "wafv2.amazonaws.com",
-              "budgets.amazonaws.com",
-              "globalaccelerator.amazonaws.com"
-            ]
           }
         }
       }
@@ -139,7 +128,7 @@ resource "aws_organizations_policy" "protect_security_services" {
           "cloudtrail:DeleteTrail",
           "cloudtrail:StopLogging",
         ]
-        Resource = var.cloudtrail_trail_arn != "" ? var.cloudtrail_trail_arn : "*"
+        Resource = var.cloudtrail_trail_arn
       }
     ]
   })
@@ -148,4 +137,27 @@ resource "aws_organizations_policy" "protect_security_services" {
 resource "aws_organizations_policy_attachment" "protect_security_services_attachment" {
   policy_id = aws_organizations_policy.protect_security_services.id
   target_id = aws_organizations_organizational_unit.security.id
+}
+
+resource "aws_organizations_policy" "suspended_accounts" {
+  name        = "SuspendedAccounts"
+  description = "Deny everything for accounts in the Suspended OU"
+  type        = "SERVICE_CONTROL_POLICY"
+
+  content = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Sid      = "SuspendedAccounts"
+        Effect   = "Deny"
+        Action   = "*"
+        Resource = "*"
+      }
+    ]
+  })
+}
+
+resource "aws_organizations_policy_attachment" "suspended_accounts_attachment" {
+  policy_id = aws_organizations_policy.suspended_accounts.id
+  target_id = aws_organizations_organizational_unit.suspended.id
 }

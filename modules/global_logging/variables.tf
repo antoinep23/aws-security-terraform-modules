@@ -39,3 +39,18 @@ variable "sns_subscriber_email_addresses" {
   type        = list(string)
   default     = []
 }
+
+variable "log_archive_account_id" {
+  description = "The account ID of the log archive account"
+  type        = string
+}
+
+variable "security_tooling_account_id" {
+  description = "The account ID of the security tooling account"
+  type        = string
+}
+
+variable "management_account_id" {
+  type        = string
+  description = "AWS Account ID of the management account"
+}
