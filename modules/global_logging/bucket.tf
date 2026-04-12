@@ -23,7 +23,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "trail" {
     status = "Enabled"
 
     transition {
-      days          = 90
+      days          = 45
       storage_class = "GLACIER_IR"
     }
   }
@@ -33,7 +33,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "trail" {
     status = "Enabled"
 
     expiration {
-      days = 180
+      days = 90
     }
   }
 }
