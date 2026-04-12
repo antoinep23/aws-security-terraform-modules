@@ -11,9 +11,9 @@ resource "aws_ssoadmin_managed_policy_attachment" "administrator" {
   permission_set_arn = aws_ssoadmin_permission_set.administrator.arn
 }
 
-# Testing purpose only. Do not attach admin access to management account
+# Testing purpose only. Do not attach admin access to management and security accounts
 
-resource "aws_ssoadmin_account_assignment" "admins" {
+resource "aws_ssoadmin_account_assignment" "management_account_admin" {
   instance_arn       = local.sso_instance_arn
   permission_set_arn = aws_ssoadmin_permission_set.administrator.arn
 
@@ -21,5 +21,27 @@ resource "aws_ssoadmin_account_assignment" "admins" {
   principal_type = "GROUP"
 
   target_id   = var.management_account_id
+  target_type = "AWS_ACCOUNT"
+}
+
+resource "aws_ssoadmin_account_assignment" "security_tooling_admin" {
+  instance_arn       = local.sso_instance_arn
+  permission_set_arn = aws_ssoadmin_permission_set.administrator.arn
+
+  principal_id   = aws_identitystore_group.admins.group_id
+  principal_type = "GROUP"
+
+  target_id   = local.accounts_ids["security_tooling"]
+  target_type = "AWS_ACCOUNT"
+}
+
+resource "aws_ssoadmin_account_assignment" "log_archive_admin" {
+  instance_arn       = local.sso_instance_arn
+  permission_set_arn = aws_ssoadmin_permission_set.administrator.arn
+
+  principal_id   = aws_identitystore_group.admins.group_id
+  principal_type = "GROUP"
+
+  target_id   = local.accounts_ids["log_archive"]
   target_type = "AWS_ACCOUNT"
 }
